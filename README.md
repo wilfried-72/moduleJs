@@ -1,34 +1,21 @@
-# ModuleJs
-
-## Tuto base NodeJS
-Plusieurs branch à votre disposition:
- - master (branch sur un module (OK))
- - dropzoneJs (réaliser un formulaire avec un dropzone et option cropperjs )
+# multifile-upload-with-preview-and-delete
+Tuto pour uploader plusieurs files (même dans différents répertoires) avec une visualisation du nom, de l'image et en option de type et surtout avec la possibilité de supprimer les files avant l'upload.  
 
 # Pré-requis
-  - NodeJS
-  - MongoDB Local
-  - Nodemon
-  - (sass optionel)
+  - Node 
+  - Mongob en local
 
-# Installer Node JS
-https://github.com/nodesource/distributions/blob/master/README.md
+# Start Project
+- sudo mongod
+- npm run dev 
+- Appli tourne sur le port 3000
 
-Pour pouvoir gérer facilement vos versions de npm grâce à NVM:
-  - https://github.com/nvm-sh/nvm
+# Tester l'application
 
-# Installer Nodemon
-```
-sudo npm i nodemon -g
-```
-# Lancer Mongo DB (local)
-```
-sudo mongod
-```
-# Installer le dossier et faire
-```
-npm i
-npm start
-```
+# Modifer l'application
+- Vous pouvez apporter des modifications à ce projet 
+- Pensez à updater la version en indiquant un commentaire sur vos modifications et votre pseudo
 
-# realisé par liwza
+# Version
+- V0: initialisation du projet à partir du tuto "DropzoneJS et CropperJS" -liwza
+- V1: 
