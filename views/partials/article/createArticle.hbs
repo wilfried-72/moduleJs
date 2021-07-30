@@ -1,0 +1,649 @@
+<h2><u>Creation nouveau article avec dropzone (1 fichier):</u></h2>
+
+<form action="/article" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <input type="text" id="titleDropzone" name="title" placeholder="title" required>
+        <span id="spanTitle" class="spanTitle"></span>
+    </div>
+
+    <div class="form-group">
+        <div id="dropzone" class="dropzone dropzoneArea">
+
+            {{!-- div pour edidter le message si il n'est pas mis en option dans le dropzone --}}
+            {{!-- <div class="dz-message ">
+                <span>Glisser-déposer vos fichiers ici (dz-message)</span>
+            </div> --}}
+            {{!-- End --}}
+
+
+            {{!-- affiche cette div via un formulaire classique si drozonejs n'est pas pris par le navigateur + previews
+            image --}}
+            <div class="fallback">
+                <label class="btn" for="fileId">Telecharger une image</label>
+                <input hidden name="dropzone" id="fileId" type="file" onchange="handleFiles(files)">
+                <div><label for="upload"><span id="preview"></span></label></div>
+            </div>
+            {{!-- End --}}
+
+        </div>
+
+
+        <div class="form-group" style="text-align: center;">
+            <div>
+                <span>Preview dropzone</span>
+            </div>
+            <br>
+            <div id="containerPreviewDropzone" class="dropzone-previews dropzone">
+
+                {{!-- ici on a le previewTemplate qui sera defini ans les options de dropzone --}}
+                <div id="previewDropzone" style="display: none;">
+
+                    <div class="dz-preview dz-file-preview">
+
+                        <div class="dz-image" style="margin-bottom: 10px"><img data-dz-thumbnail=""></div>
+                        <div class="dz-details">
+                            <div class="dz-size"><span data-dz-size=""></span></div>
+                            <div class="dz-filename"><span data-dz-name=""></span></div>
+                        </div>
+                        <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+                        <div class="dz-error-message" style="transform: translateY(-150%)"><span
+                                data-dz-errormessage=""></span></div>
+                        <div class="dz-success-mark">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x" style="color:lemonchiffon"></i>
+                                <i class="fas fa-check fa-stack-1x  fa-inverse" style="color:green"></i>
+                            </span>
+                        </div>
+
+                        <div class="dz-error-mark">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x" style="color:lemonchiffon"></i>
+                                <i class="fas fa-times fa-stack-1x  fa-inverse" style="color:red"></i>
+                            </span>
+                        </div>
+
+                        {{!-- creation du bouton suppresion personalisé si addRemoveLinks ds option dropzone est à true
+                        --}}
+                        <div id="removeButtonDropzone" style="display: none;color:blue">
+                            <span data-dz-remove><i class="fas fa-trash-alt"></i> Supprimer image (personalisé)</span>
+                        </div>
+                        {{!-- End --}}
+
+                        <br>
+
+                    </div>
+
+
+                </div>
+                {{!-- End --}}
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button id="submitDropzone" type="submit">Creer</button>
+
+    </div>
+
+    </div>
+</form>
+
+<br>
+
+<h2><u>Creation nouveau article avec dropzone et cropper (1 fichier):</u></h2>
+<form id="formDropzoneCropper" action="/article" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <input type="text" id="titleDropzoneCropper" name="title" placeholder="title" required>
+        <span id="spanTitleCropper" class="spanTitle"></span>
+    </div>
+
+    <div class="form-group">
+        <div id="dropzoneCropper" class="dropzone dropzoneArea">
+            <div class="dz-message ">
+                <span>Glisser-déposer vos fichiers ici pour les cropper</span>
+            </div>
+
+            {{!-- affiche cette div via un formulaire classique si drozonejs n'est pas pris par le navigateur + previews
+            image --}}
+            <div class="fallback">
+                <label class="btn" for="fileDropzoneCroppeId">Telecharger une image</label>
+                <input hidden name="dropzone" id="fileDropzoneCroppeId" type="file" onchange="handleFiles(files)">
+                <div><label for="upload"><span id="preview"></span></label></div>
+            </div>
+            {{!-- End --}}
+
+        </div>
+
+        <div class="form-group" style="text-align: center;">
+            <div>
+                <span>Preview cropper</span>
+            </div>
+            <br>
+
+            <div id="containerCropper">
+                <img id="imagePreviewCropper" style="width:100%;">
+            </div>
+            <button id="buttonConfirmCropper" style="display: none; margin:10x">Valider votre crop</button>
+            <button id="buttonAnnulCropper" type="reset" style="display: none; margin:10x">Annuler</button>
+
+        </div>
+
+        <div class="form-group" style="text-align: center;">
+            <div>
+                <span>Preview dropzone</span>
+
+            </div>
+            <br>
+            <div id="containerPreviewDropzoneCropper" class="dropzone-previews dropzone">
+
+                {{!-- ici on a le previewTemplate qui sera defini ans les options de dropzone --}}
+                <div id="previewDropzoneCropper" style="display: none;">
+
+                    <div class="dz-preview dz-file-preview">
+
+                        <div class="dz-image" style="margin-bottom: 10px"><img data-dz-thumbnail=""></div>
+                        <div class="dz-details">
+                            <div class="dz-size"><span data-dz-size=""></span></div>
+                            <div class="dz-filename"><span data-dz-name=""></span></div>
+                        </div>
+                        <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+                        <div class="dz-error-message" style="transform: translateY(-150%)"><span
+                                data-dz-errormessage=""></span>
+                        </div>
+                        <div class="dz-success-mark">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x" style="color:lemonchiffon"></i>
+                                <i class="fas fa-check fa-stack-1x  fa-inverse" style="color:green"></i>
+                            </span>
+                        </div>
+
+                        <div class="dz-error-mark">
+                            <span class="fa-stack fa-2x">
+                                <i class="fa fa-circle fa-stack-2x" style="color:lemonchiffon"></i>
+                                <i class="fas fa-times fa-stack-1x  fa-inverse" style="color:red"></i>
+                            </span>
+                        </div>
+
+                        {{!-- creation du bouton suppresion personalisé si addRemoveLinks ds option dropzone est à true
+                        --}}
+                        <div id="removeButtonDropzoneCropper" style="display: none;color:blue">
+                            <span data-dz-remove><i class="fas fa-trash-alt"></i> Supprimer image (personalisé)</span>
+                        </div>
+                        {{!-- End --}}
+
+                        <br>
+
+                    </div>
+
+
+                </div>
+                {{!-- End --}}
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+</form>
+
+{{!-- Script pour affiche preview image pour formulaire classique--}}
+<script>
+    function handleFiles(files) {
+        var imageType = /^image\//;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (!imageType.test(file.type)) {
+                if (alertValid) alert("veuillez sélectionner une image");
+            } else {
+                if (i == 0) {
+                    preview.innerHTML = '';
+                }
+                var img = document.createElement("img");
+                img.classList.add("obj");
+                img.file = file;
+                preview.appendChild(img);
+                var reader = new FileReader();
+                reader.onload = (function (aImg) {
+                    return function (e) {
+                        aImg.src = e.target.result;
+                    };
+                })(img);
+
+                reader.readAsDataURL(file);
+            }
+
+        }
+    }
+</script>
+{{!-- End Script pour affiche preview image pour formulaire classique--}}
+
+<script>
+    // declaration des variables generales
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ici on declare si on utilise les evenements par defaut de dropzoneJs (true) ou le code maison (false)
+    let defaultEvenement = false
+    // ici on declare si on supprime les images du preview apres une erreur
+    let deletePreviewIfError = true
+    // ici on declare si on affiche les console log
+    let log = false
+    // ici on declare si on affiche les alert personalisées
+    let alertValid = false
+    // ici on declare le delay avant le post de l'image sur le serveur (en ms)
+    let delay = 500
+
+
+
+
+    // Script pour dropzone 1 fichier
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //  Configuration du dropzone
+    //si false on désactive tous les éléments du dropzone pour les faire en programmation
+    Dropzone.autoDiscover = false;
+    // ici on declare le dropzone en programmation
+    var myDropzone = new Dropzone("#dropzone", {
+        // ici on configure les options du dropzone (il y a quelques examples mais vous pouvez en trouver d'autre dans la doc dropzoneJs dont le lien est dans le readme)
+        url: "/article", //Url pour le formulaire avec dropzone
+        // utilisation du preview
+        previewsContainer: "#containerPreviewDropzone", //creation du'un container pour preview dropzone
+        previewTemplate: document.querySelector('#previewDropzone').innerHTML,
+        dictMaxFilesExceeded: "Vous avez atteint le nombre maximun de fichier (message par default)", // message si le nombre max de fichier est atteint
+        dictFallbackMessage: 'Votre navigateur ne prend pas en compte cet élement', //Le texte qui remplace le texte du message par défaut quand le navigateur n'est pas pris en charge.
+        dictDefaultMessage: 'Glisser-déposer vos fichiers ici', //  Editer text dans dropzone si pas de div 
+        paramName: "dropzone", //Changer le name de l'input image
+        createImageThumbnails: true, // true, Indique si des miniatures pour les images doivent être générées
+        maxFilesize: 1 * 1000 / 1000, // taille de l'image en MByte, ici 1 MB
+        //maxFilesize: 50 / 1000, // taille de l'image en MByte, ici 50kB
+        dictFileTooBig: "fichier trop volumineux ( {{filesize}} MB). Il doit etre inferieur à {{maxFilesize}} MB.",
+        maxFiles: 1, // définit le nombre maximal de fichiers qu'un utilisateur peut télécharger dans le dropzone
+        //maxThumbnailFilesize: 50 / 1000, //Lorsque le fichier dépasse cette limite, la vignette ne sera pas générée.
+        clickable: true, //si false, désactive le dropzone quand on click dessus
+        acceptedFiles: 'image/*', // pour restreindre le type de fichier que vous souhaitez accepter.
+        thumbnailWidth: 120, //largeur vignette
+        thumbnailHeight: 120, //hauteur vignette
+        addRemoveLinks: false, // si true, bouton par défaut pour supprimer les images
+        dictRemoveFile: "Supprimer (default option)", // définit le texte pour le bouton suppression image
+        dictRemoveFileConfirmation: "Etes-vous sur de vouloir supprimer cette image", // text pour boite de dialogue avant suppression
+        uploadMultiple: false, // si true, S'il faut envoyer plusieurs fichiers en une seule demande. S'il est défini sur true, l'élément d'entrée du fichier de secours aura également l'attribut multiple
+        autoProcessQueue: false,
+        parallelUploads: 1, // permet un nombre de telechargement en même temps dans la dropzone
+        filesizeBase: 1000,
+        //Action appliquée lors d'un téléchargement image 
+        thumbnail: function (file, dataUrl) {
+
+            //ici fonction sur dimension en pixel width et height
+            if (file.accepted !== false) {
+                let fileWidthMin = 4000
+                let fileHeightMin = 4000
+
+                //si le width et height de l'image sont superieurs à ceux definit en config
+                if (file.width > fileWidthMin || file.height > fileHeightMin) {
+                    // On apelle la fonction qui se situe dans la partie accept pour cette example
+                    file.rejectDimensions(fileWidthMin, fileHeightMin, file);
+                }
+            }
+
+            //ici on defini les details (url, filename) pour les images uploadées dans la preview
+            if (file.previewElement) {
+                file.previewElement.classList.remove("dz-file-preview");
+                var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+                for (var i = 0; i < images.length; i++) {
+                    var thumbnailElement = images[i];
+                    //ici on met l'image en noir et blanc et on la floute
+                    thumbnailElement.style.filter = "grayscale(100%)";
+                    thumbnailElement.style.filter = "blur(8px)";
+                    thumbnailElement.alt = file.name;
+                    thumbnailElement.src = dataUrl;
+                }
+                //ici on rajoute cette class au bout d'une seconde
+                setTimeout(function () {
+                    file.previewElement.classList.add("dz-image-preview");
+                }, 1000);
+            }
+        },
+        //Action appliquée lors de l'initialitation du dropzone
+        init: function () {
+
+            // ici on efface le message de la div span title en cliquant dans le dropzone
+            document.getElementById("dropzone").addEventListener("click", function (e) {
+                document.getElementById("spanTitle").innerHTML = "";
+            });
+
+            // declaration variable
+            let nbFichier = 0
+            //dzClosureDropzone = this
+
+            // fonction sur limite taille fichier definie en option
+            limitSize = function (file, fileSize, maxFileSize, fileName) {
+                // ici on change le texte par defaut initialisé dans les options dropzone
+                myDropzone.options.dictFileTooBig = "Le fichier est trop volumineux (" + fileSize + "MB). Il doit etre inferieur à " + maxFileSize + "MB"
+                if (alertValid) alert("Votre fichier " + fileName + " est trop volumineux (" + fileSize + "MB) pour " + maxFileSize + "MB et ne va pas être upload")
+                if (log) console.log("Votre fichier " + fileName + " est trop volumineux (" + fileSize + "MB) pour " + maxFileSize + "MB et ne va pas être upload")
+            }
+
+            // fonction nombre de fichier max definie en option
+            maxfilesexceeded = function () {
+                if (alertValid) alert("Vous avez atteint le nombre maximun de fichier - boucle fonction")
+                if (log) console.log("Vous avez atteint le nombre maximun de fichier - boucle fonction")
+            }
+
+            //sending événement
+            // ici on envoi la valeur de l'input title avec l'image du dropzone
+            this.on("sending", function (file, xhr, formData) {
+                var valueTitle = document.getElementById("titleDropzone").value;
+                if (log) console.log("valueTitle: " + valueTitle)
+                if (log) console.log("sending")
+                // envoi les autres datas du formulaire
+                formData.append("title", valueTitle)
+
+            })
+
+            //addfile événement
+            this.on("addedfile", function (file) {
+                // fonction pour faire la barre progress
+                // declaration variable
+                var minSteps = 6,
+                    maxSteps = 60,
+                    timeBetweenSteps = 200,
+                    bytesPerStep = 100000;
+
+                var self = this;
+
+                totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
+
+                for (var step = 0; step < totalSteps; step++) {
+                    var duration = timeBetweenSteps * (step + 1);
+                    setTimeout(function (file, totalSteps, step) {
+                        return function () {
+                            file.upload = {
+                                progress: 100 * (step + 1) / totalSteps,
+                                total: file.size,
+                                bytesSent: (step + 1) * file.size / totalSteps
+                            };
+
+                            self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
+
+
+                            if (file.upload.progress == 100) {
+
+                                if (file.previewElement) {
+                                    var thumbnailElement = file.previewElement.querySelector("[data-dz-thumbnail]")
+                                    thumbnailElement.style.filter = "blur()"
+                                    thumbnailElement.style.filter = "grayscale(0%)";
+                                    if (log) console.log("progress finish")
+                                    // on masque la div du progress
+                                    file.previewElement.querySelector(".dz-progress").style.display = "none"
+                                    // on affiche la div du success
+                                    file.previewElement.querySelector(".dz-success-mark").style.opacity = "1";
+
+                                    // on effectue des style à la div du success avant de la masquer au bout d'un certain temp definit
+                                    setTimeout(function () {
+                                        file.previewElement.querySelector(".dz-success-mark").style.transitionDuration = "2s";
+                                        file.previewElement.querySelector(".dz-success-mark").style.transform = "translateY(60px)"
+                                        file.previewElement.querySelector(".dz-success-mark").style.opacity = "0";
+                                    }, 1000);
+                                    // ici fonction pour afficher le bouton remove personnalisée
+                                    setTimeout(function () {
+                                        if (!myDropzone.options.addRemoveLinks) file.previewElement.querySelector("#removeButtonDropzone").style.display = "block"
+                                    }, 2000);
+                                }
+
+                            }
+                        }
+                    }(file, totalSteps, step), duration);
+                }
+                //End fonction pour faire la barre progress
+
+
+                // Fonctions personnalisées effectuées 
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                if (!defaultEvenement) {
+                    //  Code maison gestion d la taille max en MB d'un fichier
+                    let fileName = file.name
+                    if (log) console.log("Nom du fichier: " + fileName)
+                    let fileSize = (file.size / 1000 / 1000)
+                    if (log) console.log("taille du fichier: " + fileSize)
+                    let maxFileSize = myDropzone.options.maxFilesize
+                    if (log) console.log("taille maximun du fichier: " + maxFileSize)
+
+                    if (fileSize > maxFileSize) {
+                        limitSize(file, fileSize, maxFileSize, fileName)
+                        // ici on supprime les fichiers du preview 
+                        if (deletePreviewIfError) this.removeFile(file);
+                    }
+
+                    //  Code maison gestion du nombre de fichier max
+                    nbFichier++
+                    if (log) console.log("nb de fichier apres addfile: " + nbFichier)
+                    let maxFileNb = myDropzone.options.maxFiles
+                    if (nbFichier > maxFileNb) {
+                        maxfilesexceeded()
+                        // ici on supprime les fichiers du preview 
+                        if (deletePreviewIfError) this.removeFile(file);
+                    }
+                }
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                // Même Fonctions mais par défaut du dropzone
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                if (defaultEvenement) {
+                    // maxfilesreached événement - se declenche si maxFiles dans option est atteint
+                    this.on("maxfilesreached", function (file, response) {
+                        if (alertValid) alert("Vous avez atteint le nombre maximun de fichier - evenement maxfilesreached dropzone")
+                        if (deletePreviewIfError) this.removeFile(file);
+                    });
+
+                    // maxfilesexceeded événement - se declenche si maxFiles dans option est depassé
+                    this.on("maxfilesexceeded", function (file, response) {
+                        if (alertValid) alert("Vous avez atteint le nombre maximun de fichier - evenement maxfilesexceeded dropzone")
+                        // ici on supprime les fichiers du preview 
+                        if (deletePreviewIfError) this.removeFile(file);
+                    })
+
+                }
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                // affiche tout les attributs de file
+                if (log) console.log("new file added ", file)
+
+                // Gestion du bouton submit avec le dropzone
+                document.getElementById("submitDropzone").addEventListener("click", function (e) {
+
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (log) console.log("avant submit")
+
+                    var validTitle = document.getElementById("titleDropzone").checkValidity();
+
+                    // Verification si data dans le champ input tittle
+                    if (!validTitle) {
+                        // Si pas de data alors, on affiche ce message
+                        document.getElementById("spanTitle").innerHTML = "*Ce champs est obligatoire";
+                    } else {
+                        if (log) console.log("submit")
+                        myDropzone.processQueue();
+
+                    }
+                });
+            })
+
+            // removefile événement
+            this.on("removedfile", function (file) {
+                nbFichier--
+                if (log) console.log("nb de fichier apres removefile: " + nbFichier)
+            })
+
+            //error événement
+            this.on('error', function (file) {
+                if (alertValid) alert("Error detecté")
+                if (log) console.log("Error detecté")
+            })
+        },
+        // Permet de faire des filtres avant d'envoyer les files
+        accept: function (file, done) {
+            // Si le nom de l'image correspond à la condition alors 
+            if (file.name == "ballon.png") {
+                done("Fichier non possible"); // On Stop le telechargement et affiche ce texte en desous de l'image
+                // Ici, on supprime le fichier du preview 
+                if (deletePreviewIfError) myDropzone.removeFile(file);
+            }
+            //sinon
+            else { done(); } // SI pas de texte dans done, alors on telecharge l'image
+
+            // Action sur les  filtre de l'image
+            file.rejectDimensions = function (fileWidthMin, fileHeightMin, file) {
+                done("The image must be at least " + fileWidthMin + "x" + fileHeightMin)
+                // Ici, on supprime le fichier du preview 
+                if (deletePreviewIfError) myDropzone.removeFile(file);
+            };
+
+        },
+        success: function (file, response) {
+            if (alertValid) alert("success");
+            if (log) console.log(file);
+            //redirection apres envoi des data de la dropzone avec les options apres un delay definit en haut
+            setTimeout(function () {
+                window.location.href = "/article";
+            }, delay);
+        }
+    })
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // End Script pour dropzone 1 fichier
+
+
+    // Script pour pour dropzone / Cropper 1 fichier
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Dropzone.autoDiscover = false;
+    var dropzoneCropper = new Dropzone("#dropzoneCropper", {
+        url: '/article',
+        paramName: "dropzone",
+        previewsContainer: "#containerPreviewDropzoneCropper",
+        previewTemplate: document.querySelector('#previewDropzoneCropper').innerHTML,
+        dictMaxFilesExceeded: "Vous avez atteint le nombre maximun de fichier (message par default)",
+        dictFallbackMessage: 'Votre navigateur ne prend pas en compte cet élement',
+        dictDefaultMessage: 'Glisser-déposer vos fichiers ici',
+        maxFilesize: 5 * 1000 / 1000,
+        maxFiles: 1,
+        acceptedFiles: 'image/*',
+        addRemoveLinks: false,
+        uploadMultiple: false,
+        dictRemoveFileConfirmation: "Etes-vous sur de vouloir supprimer cette image",
+        transformFile: function (file, done) {
+
+            var myDropZone = this;
+
+            var containerCropper = document.getElementById('containerCropper')
+            var containerCropper = document.getElementById('containerCropper')
+            var buttonConfirmCropper = document.getElementById('buttonConfirmCropper')
+
+            var buttonConfirmCropper = document.getElementById('buttonConfirmCropper');
+            buttonConfirmCropper.style.display = ""
+            buttonConfirmCropper.style.margin = "10px"
+            var buttonAnnulCropper = document.getElementById('buttonAnnulCropper');
+            buttonAnnulCropper.style.display = ""
+            buttonAnnulCropper.style.margin = "10px"
+
+            // Load the image
+            var image = new Image();
+            image.src = URL.createObjectURL(file);
+            var imagePreviewCropper = document.getElementById('imagePreviewCropper')
+            imagePreviewCropper.src = image.src
+
+
+            if (!cropper) {
+                // Create Cropper.js and pass image
+                var cropper = new Cropper(imagePreviewCropper, {
+                    aspectRatio: 1
+                });
+            } else {
+                cropper.clear()
+                cropper.destroy()
+                cropper = null
+            }
+
+            buttonConfirmCropper.addEventListener('click', function (e) {
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (log) console.log("avant submit")
+
+                var validTitleCropper = document.getElementById("titleDropzoneCropper").checkValidity();
+
+                // Verification si data dans le champ input tittle
+                if (!validTitleCropper) {
+                    // Si pas de data alors, on affiche ce message
+                    document.getElementById("spanTitleCropper").innerHTML = "*Ce champs est obligatoire";
+                } else {
+                    if (log) console.log("submit")
+
+                    // Get the canvas with image data from Cropper.js
+                    var canvas = cropper.getCroppedCanvas({
+                        width: 256,
+                        height: 256
+                    });
+
+                    // Turn the canvas into a Blob (file object without a name)
+                    canvas.toBlob(function (blob) {
+
+                        // Update the image thumbnail with the new image data
+                        myDropZone.createThumbnail(
+                            blob,
+                            myDropZone.options.thumbnailWidth,
+                            myDropZone.options.thumbnailHeight,
+                            myDropZone.options.thumbnailMethod,
+                            false,
+                            function (dataURL) {
+                                // Update the Dropzone file thumbnail
+
+                                myDropZone.emit('thumbnail', file, dataURL);
+                                done(blob);
+                            }
+                        );
+                    });
+                }
+            });
+
+
+            document.getElementById("buttonAnnulCropper").addEventListener("click", function (e) {
+                document.getElementById("spanTitleCropper").innerHTML = ""
+                imagePreviewCropper.src = ""
+                buttonConfirmCropper.style.display = "none"
+                buttonAnnulCropper.style.display = "none"
+                cropper.clear()
+                cropper.destroy()
+                cropper = null
+
+                dropzoneCropper.removeAllFiles(true)
+                file.previewTemplate.remove()
+                dropzoneCropper.emit('success', file)
+
+            });
+
+        },
+        sending: function (file, xhr, formDatas) {
+            
+            var valueTitle = document.getElementById("titleDropzoneCropper").value;
+            if (log) console.log("valueTitle: " + valueTitle)
+            if (log) console.log("sending")
+            // envoi les autres datas du formulaire
+            formDatas.append("title", valueTitle)
+        },
+        success: function (file, response,) {
+            if (alertValid) alert("success");
+            if (log) console.log(file);
+            //redirection apres envoi des data de la dropzone avec les options
+
+            setTimeout(function () {
+                window.location.href = "/article";
+            }, delay);
+        }
+    })
+
+      //////////////////////////////////////////////////////////////////////////////////////////////////////// --}}
+      //End Script pour dropzone / Cropper 1 fichier
+</script>

@@ -1,0 +1,56 @@
+a {
+    text-decoration: none;
+}
+
+.flx {
+    display: flex;
+}
+
+.itm {
+    padding: 10px;
+}
+
+.btn {
+    background-color: blue;
+    border: white;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+#preview {
+    width: 100px;
+    display: inline-block;
+}
+
+#preview img {
+    display: block;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    min-height: 5px;
+    padding: 10px 10px 10px 10px;
+    margin: 10px;
+    padding: 5px;
+    color: black;
+    background-color: white;
+    background-clip: padding-box;
+    border: 2px solid blue;
+    appearance: none;
+}
+
+.dropzoneArea {
+    border: 2px dashed grey;
+}
+
+.spanTitle {
+    color: black;
+    font-size: 20px;
+    background-color: red;
+}
