@@ -1,22 +1,22 @@
 {
-  "name": "dropzone",
+  "name": "module_js_base",
   "version": "1.0.0",
-  "description": "Tuto ulpoad file by dropzone",
-  "main": "dropzone.js",
+  "description": "Tuto module_js_base",
+  "main": "module_js_base.js",
   "scripts": {
-    "start": "node dropzone.js",
-    "dev": "nodemon dropzone.js"
+    "start": "node module_js_base.js",
+    "dev": "nodemon module_js_base.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dev-Session-WDJES/Dropzone.git"
+    "url": "git+https://github.com/wilfried-72/moduleJs.git"
   },
-  "author": "WIl",
+  "author": "liwza",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Dev-Session-WDJES/Dropzone/issues"
+    "url": "https://github.com/wilfried-72/moduleJs/issues"
   },
-  "homepage": "https://github.com/Dev-Session-WDJES/Dropzone#readme",
+  "homepage": "https://github.com/wilfried-72/moduleJse#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
