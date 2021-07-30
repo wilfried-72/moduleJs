@@ -1,31 +1,34 @@
-# DropzoneJS et CropperJS
-Tuto upload image via un dropzone
+# ModuleJs
+
+## Tuto base NodeJS
+Plusieurs branch à votre disposition:
+ - master (branch sur un module (OK))
+ - dropzoneJs (réaliser un formulaire avec un dropzone et option cropperjs )
 
 # Pré-requis
-  - Node 
-  - Mongob en local
-  - Config dropzonejs par le CDN ou en local avec le dossier public/dropzone à copier dans votre application (definit dans le head)
-  - liens utiles pour configurer votre dropzone:
-  https://www.dropzonejs.com/#configuration
-  https://www.sitepoint.com/file-upload-form-express-dropzone-js/
-  - lien utile pour configurer votre cropper:
-  https://fengyuanchen.github.io/cropperjs/
+  - NodeJS
+  - MongoDB Local
+  - Nodemon
+  - (sass optionel)
 
-# Start Project
-- sudo mongod
-- npm run dev 
-- Appli tourne sur le port 3000
+# Installer Node JS
+https://github.com/nodesource/distributions/blob/master/README.md
 
-# Tester l'application
-- Changer les différentes options dans le script pour comprendre le fonctionnement du dropzoneJS
-- Ammusez-vous bien !!!
+Pour pouvoir gérer facilement vos versions de npm grâce à NVM:
+  - https://github.com/nvm-sh/nvm
 
-# Modifer l'application
-- Vous pouvez apporter des modifications à ce projet 
-- Pensez à updater la version en indiquant un commentaire sur vos modifications et votre pseudo
+# Installer Nodemon
+```
+sudo npm i nodemon -g
+```
+# Lancer Mongo DB (local)
+```
+sudo mongod
+```
+# Installer le dossier et faire
+```
+npm i
+npm start
+```
 
-# Version
-- V0: initialisation du projet à partir du tuto "architecture-nodejs-base" branch "image" de xdrkush -liwza
-- V1: Mise en place d'un dropzone pour uploder seulement 1 fichiers avec quelques options commentées - liwza
-- V2: Mise en place d'un formulaire dropzone avec cropperJS - liwza
-- V3: Changement du repertoire dist par module pour conjig en local- liwza
+# realisé par liwza
