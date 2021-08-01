@@ -1,22 +1,23 @@
 const multer = require('multer')
 
+// Ici nous définissons la config de stockage de multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './public/images')
   },
+  // Ici on stock le nom de l'image dans le filename
   filename: (req, file, cb) => {
     const ext = file.originalname,
       date = Date.now()
     cb(null, ext)
-  }
+  },
 })
 
-
-const upload = multer({
+const uploadArray = multer({
   storage: storage,
   limits: {
     fileSize: 1 * 4098 * 4098,
-    files: 1
+    files: 10
   },
   fileFilter: (req, file, cb) => {
     if (
@@ -32,4 +33,4 @@ const upload = multer({
     }
   }
 })
-module.exports = upload
+module.exports = uploadArray

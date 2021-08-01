@@ -4,7 +4,7 @@
 const express = require('express'),
     router = express.Router(),
     path = require('path'),
-    upload  = require('./config/multer')
+    uploadArray  = require('./config/multer')
 
 /*
  * Controller
@@ -23,7 +23,7 @@ router.route('/')
 // Article
 router.route('/article')
     .get(articleController.get)
-    .post(upload.single('dropzone'),articleController.post)
+    .post(uploadArray.array('filesAttachment[]'),articleController.post)
     .delete(articleController.deleteAll)
 
 // Article ID

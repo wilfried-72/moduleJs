@@ -4,8 +4,9 @@ const mongoose = require('mongoose')
 
 const ArticleSchema = new mongoose.Schema({
     title: String,
-    imgArticle: String,
-    imgName: String
+    galleryImg: {
+        type: Array
+    },
 })
 
 module.exports = mongoose.model('Article', ArticleSchema)

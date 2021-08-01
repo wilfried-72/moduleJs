@@ -54,3 +54,53 @@ a {
     font-size: 20px;
     background-color: red;
 }
+
+.files-area-attachmentMultiple {
+    display: inline-flex;
+    width: 100%;
+}
+
+.file-block-attachmentMultiple {
+    border-radius: 10px;
+    margin: 5px;
+    color: initial;
+    display: inline-flex;
+}
+
+.name-file-attachmentMultiple {
+    font-weight: bold !important;
+    font-size: small;
+    padding-right: 3px;
+    width: max-content;
+    display: inline-flex;
+    align-self: center;
+}
+
+.type-file-attachmentMultiple {
+    padding-left: 3px;
+    font-size: small;
+    width: max-content;
+    display: inline-flex;
+    align-self: center;
+    font-weight: normal !important;
+}
+
+.file-delete-attachmentMultiple {
+    align-self: center;
+    margin-right: 3px;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.file-delete-attachmentMultiple :hover {
+    color: #dc3545 !important;
+    border-radius: 10px;
+}
+
+.src-file-attachmentMultiple {
+    padding-left: 3px;
+    width: auto;
+    height: 30px;
+    display: inline-flex;
+    align-self: center;
+}

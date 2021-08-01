@@ -1,1 +1,95 @@
-<h2><u>Tuto pour uploader plusieurs files (même dans différents répertoires) avec une visualisation du nom, de l'image et en option de type et surtout avec la possibilité de supprimer les files avant l'upload.  :</u></h2>
+<h3>Créer une galerie
+</h3>
+
+<form action="/article" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <input type="text" id="titleDropzone" name="title" placeholder="title" required>
+    </div>
+
+    <div class="form-group">
+        <label for="filesAttachment"><i class="fas fa-paperclip"></i></label>
+        <input class='file-input' id="filesAttachment" style="display:none;" type="file"
+            name="filesAttachment[]" multiple>
+    </div>
+
+    <blockquote>*( Max 6 Mo, .txt, .doc, .pdf, .jpeg, .gif, .bmp, .jpg, .png, .webp
+        )</blockquote>
+
+
+    <div class="form-group">
+        <p class="files-area-attachmentMultiple">
+            <span id="filesListAttachmentMultipleSend">
+                <span id="files-namesAttachmentMultipleSend"></span>
+            </span>
+        </p>
+    </div>
+
+
+    <div id="cancel-files" style="margin-bottom: 10px;display:none">
+        <button><a href="/article">Annuler</a></button>
+    </div>
+
+    <div>
+        <button type="submit">Créer</button>
+    </div>
+</form>
+
+
+
+<script>
+    const arrayNewFileUploadSend = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
+
+    $("#filesAttachment").on('change', function (e) {
+
+        document.getElementById('cancel-files').style.display = ""
+
+        for (var i = 0; i < this.files.length; i++) {
+            let fileBloc = $('<span/>', { class: 'file-block-attachmentMultiple' }),
+                fileName = $('<span/>', { class: 'name-file-attachmentMultiple', text: this.files.item(i).name }),
+                // si file type use
+                fileType = $('<span/>', { class: 'type-file-attachmentMultiple', text: " ( " + this.files.item(i).type + " ) " }),
+                src, strFile = this.files.item(i).type,
+                index = strFile.indexOf("image");
+
+            if (index !== -1) {
+                src = $('<img/>', { class: 'src-file-attachmentMultiple', src: window.URL.createObjectURL(this.files.item(i)) });
+            } else {
+                src = $('<img/>', { class: 'src-file-attachmentMultiple', src: "assets/images/doc.png" });
+            }
+            // si file type use
+            fileBloc.append('<span class="file-delete-attachmentMultiple"><i class="far fa-trash-alt"></i></span>').append(fileName).append(fileType).append(src);
+            //fileBloc.append('<span class="file-delete-attachmentMultiple"><i class="far fa-trash-alt"></i></span>').append(fileName).append(src);
+            $("#filesListAttachmentMultipleSend> #files-namesAttachmentMultipleSend").append(fileBloc);
+
+        };
+        // Ajout des fichiers dans l'objet DataTransfer
+        for (let file of this.files) {
+            arrayNewFileUploadSend.items.add(file);
+        }
+        // Mise à jour des fichiers de l'input file après ajout
+        this.files = arrayNewFileUploadSend.files;
+
+        // EventListener pour le bouton de suppression créé
+        $('span.file-delete-attachmentMultiple').click(function () {
+            let name = $(this).next('span.name-file-attachmentMultiple').text();
+            //console.log("nameForDel" + name)
+            // Supprimer l'affichage du nom de fichier
+            $(this).parent().remove();
+            for (let i = 0; i < arrayNewFileUploadSend.items.length; i++) {
+                // Correspondance du fichier et du nom
+                if (name === arrayNewFileUploadSend.items[i].getAsFile().name) {
+                    // Suppression du fichier dans l'objet DataTransfer
+                    arrayNewFileUploadSend.items.remove(i);
+                    continue;
+                }
+            }
+            // Mise à jour des fichiers de l'input file après suppression
+            document.getElementById('filesAttachment').files = arrayNewFileUploadSend.files;
+            //console.log(document.getElementById('filesAttachment').files)
+        });
+
+        //console.log(document.getElementById('filesAttachment').files)
+    });
+
+</script>

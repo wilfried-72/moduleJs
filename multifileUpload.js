@@ -1,5 +1,5 @@
 /*
- * Dropzone.js
+ * multifile.js
  * ****** */
 
 const
@@ -16,7 +16,7 @@ const
 app.use(methodOverride('_method'))
 
 // Mongoose
-const urlDb = 'mongodb://localhost:27017/dropzone'
+const urlDb = 'mongodb://localhost:27017/multiFileUpload'
 mongoose.connect(urlDb, {
     useNewUrlParser: true,
     useUnifiedTopology: true

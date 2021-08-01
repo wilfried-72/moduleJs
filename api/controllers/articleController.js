@@ -15,12 +15,12 @@ module.exports = {
     },
     // Method Post
     post: async (req, res) => {
-        //console.log(req.body)
-        //console.log(req.file)
+        console.log(req.body)
+        console.log(req.files)
         //console.log("req body: " + req.body)
 
 
-        if (!req.file) {
+        if (!req.files) {
             console.log("Title sans img: " + req.body.title)
             console.log("----------------------------------")
             Article.create({
@@ -28,17 +28,37 @@ module.exports = {
             })
 
         } else {
-            console.log("req file: " + req.file.originalname)
+            console.log("Title avec img:")
             console.log("----------------------------------")
             console.log("Title: " + req.body.title)
             console.log("----------------------------------")
+
+            // tableau du req.files
+            const files = req.files,
+                // Définition d'un tableau que l'on va agrémenté avec nos data pour l'inscrire dans la DB
+                arrayFiles = [];
+
+            // Boucle parcours notre req.files afin de récupéré les datas que l'on veux avant d'inscrire
+            // nos objets dans le tableaux
+            for (let i = 0; i < files.length; i++) {
+                if (files) {
+                    // C'est grace à la method push que nous inscrivont nos data dans nos Objets
+                    // Et nos objets dans le tableau
+                    arrayFiles.push({
+                        name: files[i].filename,
+                        filename: `/assets/images/${files[i].filename}`,
+                        originalname: files[i].originalname
+                    })
+                }
+            }
+
             Article.create({
                 title: req.body.title,
-                imgArticle: `/assets/images/${req.file.originalname}`,
-                imgName: req.file.originalname
+                galleryImg: arrayFiles
             })
         }
         res.redirect('/article')
+
     },
     // Method Delete One
     deleteOne: async (req, res) => {

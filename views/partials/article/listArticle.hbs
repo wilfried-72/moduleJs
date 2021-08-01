@@ -3,7 +3,12 @@
 
     <div class="itm">
         <h3>Titre: {{ this.title }}</h3>
-        <img src="{{ imgArticle }}" style="heigth: 150px; width: 150px">
+
+        {{#each galleryImg}}
+        <img src="{{ filename}}" style="heigth: 150px; width: 150px">
+
+        {{/each }}
+
         <form action="/article/{{ this._id }}/?_method=DELETE" method="post">
             <button type="submit">Effacer</button>
         </form>
