@@ -30,5 +30,7 @@ sudo mongod
 npm i
 npm start
 ```
+#  Version
+V0: initialisation du projet à partir du tuto "architecture-nodejs-base" branch "image" de xdrkush -liwza
 
 # realisé par liwza
